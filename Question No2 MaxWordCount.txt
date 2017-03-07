@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+public class MaxWordCount
+{
+	public static void main (String[] args)
+	{
+		Scanner sc=new Scanner(System.in);
+		int j=0, wordCount=0, maxwords =0;
+		String str="We test coders.Give us a try?";
+        while(j<str.length())
+        {
+        	if(str.charAt(j) == ' ')
+        	{
+        		wordCount++;
+        	}
+        	else if(str.charAt(j)== '.' || str.charAt(j) == '?' || str.charAt(j)== '!')
+        	{
+        		wordCount++;
+        		if(wordCount > maxwords)
+        		{
+        			maxwords= wordCount;
+        		}
+        		wordCount=0;
+        	}
+        	j++;
+        }
+        System.out.println(maxwords);
+	}
+}
+
+
+Ans:-4

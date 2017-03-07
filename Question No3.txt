@@ -1,0 +1,70 @@
+
+Question No. 3) Suppose you have 2 tables as below
+I. Employee(EmpNo(PK), Ename, Job, MGR, Hiredate, Salary, DeptNo)                                                                                                                                                                                                                         II. Department(DeptNo(PK), Dname, Location)                                                                                  
+Write a query that shows department name and total number of employees in each department with the format as DEPTPARTMENT NAME:NUMBER OF EMPLOYEE
+
+Ans:-
+
+mysql> desc Employee;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| EmpNo    | int(100)     | NO   | PRI | NULL    |       |
+| Ename    | varchar(100) | YES  |     | NULL    |       |
+| Job      | varchar(100) | YES  |     | NULL    |       |
+| MGR      | varchar(100) | YES  |     | NULL    |       |
+| Hiredate | date         | YES  |     | NULL    |       |
+| Salary   | varchar(100) | YES  |     | NULL    |       |
+| DeptNo   | int(100)     | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> desc Department;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| DeptNo   | int(100)     | NO   | PRI | NULL    |       |
+| Dname    | varchar(100) | YES  |     | NULL    |       |
+| Location | varchar(100) | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+
+
+mysql> select * from Employee;
++-------+---------+-------+--------+------------+--------+--------+
+| EmpNo | Ename   | Job   | MGR    | Hiredate   | Salary | DeptNo |
++-------+---------+-------+--------+------------+--------+--------+
+|     1 | Bajrang | IT    | HR     | 2017-01-04 | 30000  |     11 |
+|     2 | Aditya  | IT    | HR     | 2016-08-23 | 35000  |     12 |
+|     3 | Mayur   | Civil | Manger | 2015-12-20 | 40000  |     13 |
+|     4 | Sunil   | IT    | Manger | 2016-11-30 | 45000  |     14 |
+|     5 | Pranv   | IT    | HR     | 2016-10-15 | 50000  |     15 |
+|     6 | Sandip  | IT    | HR     | 2016-12-25 | 30000  |     16 |
++-------+---------+-------+--------+------------+--------+--------+
+6 rows in set (0.00 sec)
+
+
+mysql> select * from Department;
++--------+-------+----------+
+| DeptNo | Dname | Location |
++--------+-------+----------+
+|     11 | comp  | pune     |
+|     12 | entc  | pune     |
+|     13 | civil | pune     |
+|     14 | comp  | pune     |
+|     15 | entc  | pune     |
+|     27 | civil | pune     |
++--------+-------+----------+
+6 rows in set (0.00 sec)
+
+
+mysql> select Department.Dname as 'DEPARTMENT NAME' ,':', count(*) as 'NUMBER OF EMPLOYEE' from Employee inner join Department on Employee.DeptNo=Department.DeptNo group by Department.Dname;
++-----------------+---+--------------------+
+| DEPARTMENT NAME | : | NUMBER OF EMPLOYEE |
++-----------------+---+--------------------+
+| civil           | : |                  2 |
+| comp            | : |                  2 |
+| entc            | : |                  2 |
++-----------------+---+--------------------+
+
+3 rows in set (0.00 sec)
+
